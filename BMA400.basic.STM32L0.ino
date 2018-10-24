@@ -144,21 +144,24 @@ void setup()
 
 void loop()
 {
-  /* BMA400 */
+  /* BMA400 sleep/wake detect*/
   if(BMA400_wake_flag)
   {
-   BMA400_wake_flag = false;
-   InMotion = true;
+   BMA400_wake_flag = false; // clear the wake flag
+   InMotion = true;          // set motion state latch
+   BMA400.activateNoMotionInterrupt();  
+   attachInterrupt(BMA400_intPin2, myinthandler2, RISING);  // attach no-motion interrupt for INT2 pin output of BMA400 
    digitalWrite(myLed, LOW);
   }
 
   if(BMA400_sleep_flag)
   {
-   BMA400_sleep_flag = false;
-   InMotion = false;
+   BMA400_sleep_flag = false;            // clear the sleep flag
+   InMotion = false;                     // set motion state latch
+   detachInterrupt(BMA400_intPin2);       // Detach the BMA400 "Go to sleep" interrupt so it doesn't spuriously wake the STM32L4
+   BMA400.deactivateNoMotionInterrupt(); // disable no-motion interrupt to save power 
    digitalWrite(myLed, HIGH);
-  }
-
+  }/* end of sleep/wake detect */
  
   /*RTC*/
   if (alarmFlag) { // update RTC output whenever there is a GNSS pulse
