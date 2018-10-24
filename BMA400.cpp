@@ -93,6 +93,16 @@ void BMA400::initBMA400(uint8_t Ascale, uint8_t SR, uint8_t power_Mode, uint8_t 
    writeByte(BMA400_ADDRESS,BMA400_INT_CONFIG0,  0x04);          // enable GEN1 interrupt (bit 2) 
 }
 
+void BMA400::activateNoMotionInterrupt()
+{
+  writeByte(BMA400_ADDRESS,BMA400_INT_CONFIG0,  0x04);           // enable GEN1 (no_Motion) interrupt  
+}
+
+void BMA400::deactivateNoMotionInterrupt()
+{
+  writeByte(BMA400_ADDRESS,BMA400_INT_CONFIG0,  0x00);           // disable GEN1 (no_Motion) interrupt  
+}
+
 
 void BMA400::CompensationBMA400(uint8_t Ascale, uint8_t SR, uint8_t power_Mode, uint8_t OSR, uint8_t acc_filter, float * offset)
 {
