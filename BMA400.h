@@ -159,6 +159,8 @@ class BMA400
   void selfTestBMA400();
   void readBMA400AccelData(int16_t * destination);
   int16_t readBMA400TempData();
+  void activateNoMotionInterrupt();
+  void deactivateNoMotionInterrupt();
   uint8_t getStatus();
   void I2Cscan();
   void writeByte(uint8_t address, uint8_t subAddress, uint8_t data);
