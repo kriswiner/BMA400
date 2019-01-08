@@ -164,7 +164,7 @@ void loop()
   }/* end of sleep/wake detect */
  
   /*RTC*/
-  if (alarmFlag) { // update RTC output whenever there is a GNSS pulse
+  if (alarmFlag) { // update RTC output whenever the alarm triggers
     alarmFlag = false;
     
     if(SerialDebug && InMotion) {
